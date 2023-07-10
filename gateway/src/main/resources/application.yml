@@ -1,0 +1,74 @@
+server:
+  port: 8088
+
+---
+
+spring:
+  profiles: default
+  cloud:
+    gateway:
+      routes:
+        - id: user-profile-management
+          uri: http://localhost:8082
+          predicates:
+            - Path=/userProfiles/**, 
+        - id: dating-coordinator
+          uri: http://localhost:8083
+          predicates:
+            - Path=/dateSchedules/**, 
+        - id: matching-algorithm
+          uri: http://localhost:8085
+          predicates:
+            - Path=/matchingResults/**, 
+        - id: frontend
+          uri: http://localhost:8080
+          predicates:
+            - Path=/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: user-profile-management
+          uri: http://userProfileManagement:8080
+          predicates:
+            - Path=/userProfiles/**, 
+        - id: dating-coordinator
+          uri: http://datingCoordinator:8080
+          predicates:
+            - Path=/dateSchedules/**, 
+        - id: matching-algorithm
+          uri: http://matchingAlgorithm:8080
+          predicates:
+            - Path=/matchingResults/**, 
+        - id: frontend
+          uri: http://frontend:8080
+          predicates:
+            - Path=/**
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8080

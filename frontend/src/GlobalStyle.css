@@ -1,0 +1,19 @@
+.border-color {
+    border:solid #0072CE 1px !important;
+}
+
+.main-text-color {
+    color: #0072CE !important;
+}
+
+.secondary-text-color {
+    color: #0072CE !important;
+}
+
+.v-application {
+    background-color: #0072CE !important;
+}
+
+*{
+    font-family: 배민주아체 !important;
+}
